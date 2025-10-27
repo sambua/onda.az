@@ -11,13 +11,13 @@ import onda.shared.generated.resources.roboto_condensed_light
 
 //@Composable
 @Composable
-fun RobotoFont() = FontFamily(
+fun robotoFont() = FontFamily(
     Font(Res.font.roboto),
 )
 
 //@Composable
 @Composable
-fun RobotoCondensedFont() = FontFamily(
+fun robotoCondensedFont() = FontFamily(
     Font(Res.font.roboto_condensed),
     Font(Res.font.roboto_condensed_light, weight = androidx.compose.ui.text.font.FontWeight.Light),
 )

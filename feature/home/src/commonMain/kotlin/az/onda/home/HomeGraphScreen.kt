@@ -48,7 +48,7 @@ import az.onda.home.domain.opposite
 import az.onda.shared.Alpha
 import az.onda.shared.FontSizes
 import az.onda.shared.Resources
-import az.onda.shared.RobotoCondensedFont
+import az.onda.shared.robotoCondensedFont
 import az.onda.shared.Surface
 import az.onda.shared.SurfaceLighter
 import az.onda.shared.TextPrimary
@@ -149,7 +149,7 @@ fun HomeGraphScreen(
                             ) { destination ->
                                 Text(
                                     text = destination.title,
-                                    fontFamily = RobotoCondensedFont(),
+                                    fontFamily = robotoCondensedFont(),
                                     fontSize = FontSizes.LARGE,
                                     color = TextPrimary
                                 )
