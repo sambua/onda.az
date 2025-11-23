@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import az.onda.data.domain.CustomerRepository
+import az.onda.data.auth.AuthRepository
 import az.onda.navigation.SetupNavGraph
 import az.onda.shared.navigation.Screen
 import com.mmk.kmpauth.google.GoogleAuthCredentials
@@ -17,11 +17,11 @@ import org.koin.compose.koinInject
 @Preview
 fun App() {
     MaterialTheme {
-        val customerRepository = koinInject<CustomerRepository>()
+        val authRepository = koinInject<AuthRepository>()
         var appReady by remember { mutableStateOf(false) }
-        val isUserAuthenticated = remember { customerRepository.getCurrentUserID() != null }
+        val isUserAuthenticated = remember { authRepository.isLoggedIn() }
         val startDestination = remember {
-            if (!isUserAuthenticated) {
+            if (isUserAuthenticated) {
                 Screen.HomeGraph
             } else {
                 Screen.Auth
@@ -37,7 +37,6 @@ fun App() {
             appReady = true
         }
 
-        // SetupNavGraph()
         AnimatedVisibility(
             modifier = Modifier.fillMaxSize(),
             visible = appReady,

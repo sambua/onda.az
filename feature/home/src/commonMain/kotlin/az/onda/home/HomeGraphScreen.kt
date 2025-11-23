@@ -43,6 +43,7 @@ import az.onda.home.component.BottomBar
 import az.onda.home.component.CustomDrawer
 import az.onda.home.domain.BottomBarDestination
 import az.onda.home.domain.CustomDrawerState
+import az.onda.home.domain.HomeTab
 import az.onda.home.domain.isOpened
 import az.onda.home.domain.opposite
 import az.onda.shared.Alpha
@@ -52,7 +53,6 @@ import az.onda.shared.robotoCondensedFont
 import az.onda.shared.Surface
 import az.onda.shared.SurfaceLighter
 import az.onda.shared.TextPrimary
-import az.onda.shared.navigation.Screen
 import az.onda.shared.util.getScreenWidth
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -69,10 +69,10 @@ fun HomeGraphScreen(
         derivedStateOf {
             val route = currentRoute.value?.destination?.route.toString()
             when {
-                route.contains(BottomBarDestination.Home.screen.toString()) -> BottomBarDestination.Home
-                route.contains(BottomBarDestination.Search.screen.toString()) -> BottomBarDestination.Search
-                route.contains(BottomBarDestination.Reservation.screen.toString()) -> BottomBarDestination.Reservation
-                route.contains(BottomBarDestination.Profile.screen.toString()) -> BottomBarDestination.Profile
+                route.contains("Feed") -> BottomBarDestination.Home
+                route.contains("Categories") -> BottomBarDestination.Search
+                route.contains("Reservations") -> BottomBarDestination.Reservation
+                route.contains("Profile") -> BottomBarDestination.Profile
                 else -> BottomBarDestination.Home
             }
         }
@@ -203,12 +203,12 @@ fun HomeGraphScreen(
                         NavHost(
                             modifier = Modifier.weight(1f),
                             navController = navController,
-                            startDestination = Screen.HomeGraph,
+                            startDestination = HomeTab.Feed,
                         ) {
-                            composable<Screen.HomeGraph>{ }
-                            composable<Screen.Reservation> { }
-                            composable<Screen.Categories>{ }
-                            composable<Screen.Profile>{ }
+                            composable<HomeTab.Feed>{ }
+                            composable<HomeTab.Reservations> { }
+                            composable<HomeTab.Categories>{ }
+                            composable<HomeTab.Profile>{ }
                         }
                         Spacer(modifier = Modifier.height(12.dp))
                         Box(
@@ -217,9 +217,9 @@ fun HomeGraphScreen(
                             BottomBar(
                                 selected = selectedDestination,
                                 onSelect = { destination ->
-                                    navController.navigate(destination.screen) {
+                                    navController.navigate(destination.tab) {
                                         launchSingleTop = true
-                                        popUpTo<Screen.HomeGraph> {
+                                        popUpTo<HomeTab.Feed> {
                                             saveState = true
                                             inclusive = false
                                         }

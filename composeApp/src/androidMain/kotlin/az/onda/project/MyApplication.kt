@@ -6,13 +6,12 @@ import org.koin.android.ext.koin.androidContext
 
 class MyApplication: Application() {
     override fun onCreate() {
-        // We can initialize things here if needed
+        super.onCreate()
+        // Initialize Koin after super.onCreate() so Android context is ready
         initKoinModule (
             config = {
-                // You can declare your Koin modules here
                 androidContext(this@MyApplication)
             }
         )
-        super.onCreate()
     }
 }

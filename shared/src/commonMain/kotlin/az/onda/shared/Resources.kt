@@ -3,6 +3,7 @@ package az.onda.shared
 import az.onda.shared.navigation.Screen
 import onda.shared.generated.resources.Res
 import onda.shared.generated.resources.alert_notification
+import onda.shared.generated.resources.apple_logo
 import onda.shared.generated.resources.chat
 import onda.shared.generated.resources.clock_deadline
 import onda.shared.generated.resources.eye_see
@@ -16,6 +17,9 @@ import onda.shared.generated.resources.admin
 import onda.shared.generated.resources.close
 import onda.shared.generated.resources.history_time
 import onda.shared.generated.resources.approve_reject
+import onda.shared.generated.resources.sms_icon
+import onda.shared.generated.resources.telegram_logo
+import onda.shared.generated.resources.whatsapp_logo
 
 object Resources {
     object Icon {
@@ -32,9 +36,13 @@ object Resources {
         val History = Res.drawable.history_time
         val ApproveReject = Res.drawable.approve_reject
         val Close = Res.drawable.close
+        val Sms = Res.drawable.sms_icon
+        val WhatsApp = Res.drawable.whatsapp_logo
+        val Telegram = Res.drawable.telegram_logo
     }
 
     object Image {
         val GoogleLogo = Res.drawable.google_logo
+        val AppleLogo = Res.drawable.apple_logo
     }
 }

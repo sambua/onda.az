@@ -1,13 +1,12 @@
 package az.onda.navigation
 
 import androidx.compose.runtime.Composable
-// Importing the AuthScreen composable from the auth feature module
-// import az.onda.auth.AuthScreen <<-- this one is not working for some reason
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
-
-import AuthScreen
+import androidx.navigation.toRoute
+import az.onda.auth.AuthScreen
+import az.onda.auth.OtpVerificationScreen
 import az.onda.home.HomeGraphScreen
 import az.onda.shared.navigation.Screen
 
@@ -22,8 +21,30 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
             AuthScreen(
                 navigateToHome = {
                     navController.navigate(Screen.HomeGraph) {
-                        // This will clear the back stack so user cannot navigate back to AuthScreen
-                        popUpTo<Screen.Auth>{ inclusive = true }
+                        popUpTo<Screen.Auth> { inclusive = true }
+                    }
+                },
+                navigateToOtpVerification = { phone, channel ->
+                    navController.navigate(Screen.OtpVerification(phone, channel))
+                }
+            )
+        }
+        composable<Screen.OtpVerification> { backStackEntry ->
+            val route = backStackEntry.toRoute<Screen.OtpVerification>()
+            // Handle edge case where arguments might be empty after process death
+            if (route.phone.isEmpty()) {
+                navController.popBackStack()
+                return@composable
+            }
+            OtpVerificationScreen(
+                phone = route.phone,
+                channel = route.channel,
+                onNavigateBack = {
+                    navController.popBackStack()
+                },
+                onVerificationSuccess = {
+                    navController.navigate(Screen.HomeGraph) {
+                        popUpTo<Screen.Auth> { inclusive = true }
                     }
                 }
             )
@@ -32,12 +53,10 @@ fun SetupNavGraph(startDestination: Screen = Screen.Auth) {
             HomeGraphScreen(
                 navigateToAuth = {
                     navController.navigate(Screen.Auth) {
-                    // This will clear the back stack so user cannot navigate back to AuthScreen
-                        popUpTo<Screen.HomeGraph>{ inclusive = true }
+                        popUpTo<Screen.HomeGraph> { inclusive = true }
                     }
                 }
             )
         }
     }
-    // AuthScreen()
 }

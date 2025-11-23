@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import az.onda.home.domain.DrawerItem
 import az.onda.shared.FontSizes
-import az.onda.shared.RobotoFont
+import az.onda.shared.robotoCondensedFont
 import az.onda.shared.TextSecondary
 
 @Composable
@@ -35,14 +35,14 @@ fun CustomDrawer(
             modifier = Modifier.fillMaxWidth(),
             text = "Onda",
             color = TextSecondary,
-            fontFamily = RobotoFont(),
+            fontFamily = robotoCondensedFont(),
             fontSize= FontSizes.EXTRA_LARGE
         )
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "saat, 10-da",
             color = TextSecondary,
-            fontFamily = RobotoFont(),
+            fontFamily = robotoCondensedFont(),
             fontSize= FontSizes.REGULAR
         )
         Spacer(modifier = Modifier.height(50.dp))

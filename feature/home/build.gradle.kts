@@ -23,6 +23,13 @@ kotlin {
             baseName = "home"
             isStatic = true
         }
+        iosTarget.compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-opt-in=kotlinx.cinterop.ExperimentalForeignApi")
+                }
+            }
+        }
     }
 
     sourceSets {

@@ -1,3 +1,4 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -5,14 +6,12 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.serialization)
-
 }
 
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 
@@ -21,7 +20,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "data"
+            baseName = "profile"
             isStatic = true
         }
     }
@@ -37,30 +36,16 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
-            implementation(libs.auth.kmp.google)
-            implementation(libs.auth.kmp.uihelper)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
-            // Ktor HTTP Client
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.json)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.auth)
+            implementation(libs.compose.navigation)
 
-            // Settings for token storage
-            implementation(libs.multiplatform.settings)
-            implementation(libs.multiplatform.settings.no.arg)
+            implementation(libs.messagebar.kmp)
 
-            implementation(libs.kotlinx.serialization)
-            implementation(libs.kotlinx.coroutines.core)
+            implementation(project(":data"))
+            implementation(project(":shared"))
 
-            implementation(project(path = ":shared"))
-        }
-        androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -69,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "az.onda.data"
+    namespace = "az.onda.profile"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
@@ -77,8 +62,8 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

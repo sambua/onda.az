@@ -43,7 +43,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
-            implementation(libs.auth.kmp)
+            implementation(libs.auth.kmp.google)
             implementation(libs.messagebar.kmp)
 
             implementation(libs.koin.compose)

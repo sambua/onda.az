@@ -38,7 +38,7 @@ kotlin {
 
 
             implementation(libs.messagebar.kmp)
-            implementation(libs.auth.kmp)
+            implementation(libs.auth.kmp.google)
 
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
